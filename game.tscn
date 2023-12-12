@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://chbwpelukiaao"]
+[gd_scene load_steps=22 format=3 uid="uid://chbwpelukiaao"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_3nq0w"]
-[ext_resource type="Texture2D" uid="uid://b41s1ktwbgook" path="res://Assets/player.png" id="2_c5cqf"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsrrk"]
-size = Vector2(1152, 50)
+[ext_resource type="Texture2D" uid="uid://bm1s7u6e34e2h" path="res://Assets/player.png" id="2_c5cqf"]
+[ext_resource type="Texture2D" uid="uid://c021ys4gdxc7y" path="res://Tiles/tile_0000.png" id="3_msrec"]
+[ext_resource type="Texture2D" uid="uid://cb8sfjbbr4ym7" path="res://Tiles/tile_0001.png" id="4_mcc7j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ssbdb"]
 atlas = ExtResource("2_c5cqf")
@@ -52,7 +51,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ssbdb")
 }],
-"loop": true,
+"loop": false,
 "name": &"Fall",
 "speed": 5.0
 }, {
@@ -60,7 +59,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f14x7")
 }],
-"loop": true,
+"loop": false,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -71,9 +70,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f1gew")
 }],
-"loop": true,
+"loop": false,
 "name": &"Jump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -96,31 +95,71 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a47tu"]
-size = Vector2(22, 53)
+size = Vector2(22, 64.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsrrk"]
+size = Vector2(1152, 50)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6xakw"]
+texture = ExtResource("3_msrec")
+texture_region_size = Vector2i(64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jysuy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_unb4j"]
+texture = ExtResource("4_mcc7j")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1l6ps"]
+sources/0 = SubResource("TileSetAtlasSource_6xakw")
+sources/1 = SubResource("TileSetAtlasSource_jysuy")
+sources/2 = SubResource("TileSetAtlasSource_unb4j")
 
 [node name="Game" type="Node2D"]
-position = Vector2(92, 38)
+position = Vector2(100, 33)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(-5, -6)
+script = ExtResource("1_3nq0w")
+
+[node name="State" type="Label" parent="Player"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-82, 326)
+sprite_frames = SubResource("SpriteFrames_fk1p0")
+animation = &"Walk"
+frame_progress = 0.125891
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-81, 328.25)
+shape = SubResource("RectangleShape2D_a47tu")
+metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(476, 380)
+position = Vector2(469, 373)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_gsrrk")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-script = ExtResource("1_3nq0w")
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(-60, -2)
+tile_set = SubResource("TileSet_1l6ps")
+format = 2
+layer_0/tile_data = PackedInt32Array(1376261, 2, 0, 1376263, 2, 0, 1376262, 2, 0, 1376264, 2, 0, 1310728, 2, 0, 1245192, 2, 0, 1245193, 2, 0, 1310729, 2, 0, 1376265, 2, 0, 1376266, 2, 0, 1310730, 2, 0, 1310731, 2, 0, 1376267, 2, 0, 1376268, 2, 0, 1310732, 2, 0, 1310733, 2, 0, 1376269, 2, 0, 1376270, 2, 0, 1376271, 2, 0, 1376272, 2, 0, 1376275, 2, 0, 1310739, 2, 0, 1245204, 2, 0, 1310740, 2, 0, 1376276, 2, 0, 1376277, 2, 0, 1376278, 2, 0, 1310741, 2, 0, 1310742, 2, 0, 1310743, 2, 0, 1376279, 2, 0, 1179668, 2, 0, 1179669, 2, 0, 1245205, 2, 0, 1245206, 2, 0, 1245207, 2, 0, 1245208, 2, 0, 1310744, 2, 0, 1376280, 2, 0, 1376281, 2, 0, 1310745, 2, 0, 1376282, 2, 0, 1376283, 2, 0, 983055, 2, 0, 983056, 2, 0, 983057, 2, 0, 983054, 2, 0, 917519, 2, 0, 917520, 2, 0, 1376284, 2, 0, 1376273, 2, 0, 1376274, 2, 0, 1376257, 2, 0, 1376258, 2, 0, 1310722, 2, 0, 1376288, 2, 0, 1376289, 2, 0, 1376290, 2, 0, 1376291, 2, 0, 1376292, 2, 0, 1310752, 2, 0, 1310753, 2, 0, 1310754, 2, 0, 1310755, 2, 0, 1245217, 2, 0, 1245218, 2, 0, 1179682, 2, 0, 1245219, 2, 0, 1310756, 2, 0, 1310757, 2, 0, 1376293, 2, 0, 1376295, 2, 0, 1376294, 2, 0, 1310758, 2, 0, 1310759, 2, 0, 1376296, 2, 0, 1376298, 2, 0, 1376297, 2, 0, 1376299, 2, 0, 1376303, 2, 0, 1376304, 2, 0, 1376306, 2, 0, 1376305, 2, 0, 1310768, 2, 0, 1310769, 2, 0, 1310770, 2, 0, 1376307, 2, 0, 1376308, 2, 0, 1376309, 2, 0, 1376312, 2, 0, 1376314, 2, 0, 1376316, 2, 0, 1376319, 2, 0, 1376318, 2, 0, 1376317, 2, 0, 1376315, 2, 0, 1376313, 2, 0, 1376320, 2, 0, 1376321, 2, 0, 1310776, 2, 0, 1310777, 2, 0, 1310778, 2, 0, 1310780, 2, 0, 1310783, 2, 0, 1310785, 2, 0, 1310784, 2, 0, 1310782, 2, 0, 1310781, 2, 0, 1310779, 2, 0, 1245241, 2, 0, 1245242, 2, 0, 1245243, 2, 0, 1245244, 2, 0, 1245246, 2, 0, 1245245, 2, 0, 1245247, 2, 0, 1245248, 2, 0, 1245249, 2, 0, 1179708, 2, 0, 1179709, 2, 0, 1179710, 2, 0, 1179712, 2, 0, 1179711, 2, 0, 1179713, 2, 0, 1048627, 2, 0, 1114165, 2, 0, 1114164, 2, 0, 1114163, 2, 0, 917542, 2, 0, 983078, 2, 0, 983080, 2, 0, 983079, 2, 0, 983081, 2, 0, 983082, 2, 0, 917546, 2, 0, 1048602, 2, 0, 983066, 2, 0, 983068, 2, 0, 983070, 2, 0, 1048606, 2, 0, 1114142, 2, 0, 983069, 2, 0, 983067, 2, 0, 720916, 2, 0, 720917, 2, 0, 720918, 2, 0, 720919, 2, 0, 851994, 2, 0, 917530, 2, 0, 917534, 2, 0, 917544, 2, 0, 917545, 2, 0, 720941, 2, 0, 720942, 2, 0, 720944, 2, 0, 720947, 2, 0, 720950, 2, 0, 720951, 2, 0, 720946, 2, 0, 852026, 2, 0, 917563, 2, 0, 983100, 2, 0, 917564, 2, 0, 852027, 2, 0, 852028, 2, 0, 1376259, 2, 0, 1376260, 2, 0, 786436, 2, 0, 786437, 2, 0, 851974, 2, 0, 851975, 2, 0, 1376285, 2, 0, 1376286, 2, 0, 1376287, 2, 0, 1376300, 2, 0, 1376301, 2, 0, 1376302, 2, 0, 1376310, 2, 0, 1376311, 2, 0, 1310734, 2, 0)
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Player"]
-sprite_frames = SubResource("SpriteFrames_fk1p0")
-animation = &"Jump"
-autoplay = "Jump"
+[node name="StateMachine" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_a47tu")
-metadata/_edit_group_ = true
+[node name="Iddle" type="Node" parent="StateMachine"]
+
+[node name="Moving" type="Node" parent="StateMachine"]
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+
+[node name="Faling" type="Node" parent="StateMachine"]
